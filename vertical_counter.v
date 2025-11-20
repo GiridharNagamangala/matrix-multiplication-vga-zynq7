@@ -14,7 +14,7 @@ module vertical_counter (
     parameter V_BACK_PORCH     = 33;
     parameter V_TOTAL          = V_VISIBLE_AREA + V_FRONT_PORCH + V_SYNC_PULSE + V_BACK_PORCH;
 
-    always @(posedge clk or negedge reset_n) begin
+    always @(posedge clk) begin
         if (!reset_n) begin
             v_count <= 11'd0;
             vsync   <= 1'b1; // Active low
