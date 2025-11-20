@@ -5,12 +5,14 @@ module vga_rtl_top (
     output wire vsync,       // Vertical sync output
     output wire hblank,      // Horizontal blanking signal
     output wire vblank,      // Vertical blanking signal
-    output wire [10:0] h_count, // Horizontal pixel count
-    output wire [10:0] v_count  // Vertical pixel count
+    output wire [3:0] vga_r, // VGA Red out
+    output wire [3:0] vga_g, // VGA Green out
+    output wire [3:0] vga_b // VGA Blue out
 );
 
     // Clock divider instance to generate pixel clock from system clock
     wire pixel_clk, v_en;
+    wire [10:0] h_count, v_count;
     clk_divider #(
         .DIVIDE_BY(4) // Adjust this value based on system clock frequency to get desired pixel clock
     ) clk_div_inst (
@@ -38,5 +40,9 @@ module vga_rtl_top (
         .vblank(vblank),
         .v_count(v_count)
     );
+
+    assign vga_r = (h_count < 784 && h_count > 143 && v_count < 515 && v_count > 35) ? 4'hf : 4'h0;
+    assign vga_g = (h_count < 784 && h_count > 143 && v_count < 515 && v_count > 35) ? 4'hf : 4'h0;
+    assign vga_b = (h_count < 784 && h_count > 143 && v_count < 515 && v_count > 35) ? 4'hf : 4'h0;
 
 endmodule
