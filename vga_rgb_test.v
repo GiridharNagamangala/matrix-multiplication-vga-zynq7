@@ -1,3 +1,4 @@
+// deprecated: use vga_rtl_top.v instead
 module vga_rgb_test (
     input  wire       clk,       // pixel clock (25 MHz for 640x480@60)
     input  wire       reset,     // synchronous reset

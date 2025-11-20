@@ -1,3 +1,4 @@
+// deprecated: use vga_rtl_top.v instead
 module vga_controller (
     input wire clk,          // Pixel clock
     input wire reset,        // Reset signal
