@@ -10,7 +10,7 @@ module vga_rtl_top (
 );
 
     // Clock divider instance to generate pixel clock from system clock
-    wire pixel_clk;
+    wire pixel_clk, v_en;
     clk_divider #(
         .DIVIDE_BY(4) // Adjust this value based on system clock frequency to get desired pixel clock
     ) clk_div_inst (
@@ -25,6 +25,7 @@ module vga_rtl_top (
         .reset_n(reset_n),
         .hsync(hsync),
         .hblank(hblank),
+        .en_v_count(v_en),
         .h_count(h_count)
     );
 
@@ -32,6 +33,7 @@ module vga_rtl_top (
     vertical_counter vert_counter_inst (
         .clk(pixel_clk),
         .reset_n(reset_n),
+        .en_v_count(v_en),
         .vsync(vsync),
         .vblank(vblank),
         .v_count(v_count)

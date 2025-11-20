@@ -3,6 +3,7 @@ module horizontal_counter (
     input  wire reset_n,
     output reg  hsync,
     output reg  hblank,
+    output reg en_v_count,
     output reg [10:0] h_count
 );
 
@@ -18,6 +19,7 @@ module horizontal_counter (
             h_count <= 11'd0;
             hsync   <= 1'b1; // Active low
             hblank  <= 1'b0;
+            en_v_count <= 1'b0;
         end else begin
             if (h_count == H_TOTAL - 1) begin
                 h_count <= 11'd0;
@@ -37,6 +39,13 @@ module horizontal_counter (
                 hblank <= 1'b1;
             end else begin
                 hblank <= 1'b0;
+            end
+
+            // Generate vertical count enable signal
+            if (h_count == H_TOTAL - 2) begin
+                en_v_count <= 1'b1;
+            end else begin
+                en_v_count <= 1'b0;
             end
         end
     end

@@ -1,6 +1,7 @@
 module vertical_counter (
     input  wire clk,
     input  wire reset_n,
+    input wire en_v_count,
     output reg  vsync,
     output reg  vblank,
     output reg [10:0] v_count
@@ -21,9 +22,10 @@ module vertical_counter (
         end else begin
             if (v_count == V_TOTAL - 1) begin
                     v_count <= 11'd0;
-                end else begin
+                end else if (en_v_count) begin
                     v_count <= v_count + 1;
                 end
+            end
 
             // Generate vsync pulse
             if (v_count >= (V_VISIBLE_AREA + V_FRONT_PORCH) && v_count < (V_VISIBLE_AREA + V_FRONT_PORCH + V_SYNC_PULSE)) begin
@@ -39,6 +41,5 @@ module vertical_counter (
                 vblank <= 1'b0;
             end
         end
-    end
 
 endmodule
