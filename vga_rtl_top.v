@@ -43,8 +43,8 @@ module vga_rtl_top (
         .v_count(v_count)
     );
 
-    assign vga_r = (h_count < 784 && h_count > 143 && v_count < 515 && v_count > 35) ? 4'hf : 4'h0;
-    assign vga_g = (h_count < 784 && h_count > 143 && v_count < 515 && v_count > 35) ? 4'hf : 4'h0;
-    assign vga_b = (h_count < 784 && h_count > 143 && v_count < 515 && v_count > 35) ? 4'hf : 4'h0;
+    assign vga_r = (((h_count < 305 && h_count > 300) || (h_count < 600 && h_count > 595)) && (v_count < 500 && v_count > 200)) ? 4'hf : 4'h0; // (143, 784), (35, 515)
+    assign vga_g = (((h_count < 305 && h_count > 300) || (h_count < 600 && h_count > 595)) && (v_count < 500 && v_count > 200)) ? 4'hf : 4'h0; // (143, 784), (35, 515)
+    assign vga_b = (((h_count < 305 && h_count > 300) || (h_count < 600 && h_count > 595)) && (v_count < 500 && v_count > 200)) ? 4'hf : 4'h0; // (143, 784), (35, 515)
 
 endmodule
