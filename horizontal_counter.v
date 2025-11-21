@@ -1,5 +1,6 @@
 module horizontal_counter (
     input  wire clk,
+    input wire clk_en,
     input  wire reset_n,
     output wire  hsync,
     output wire  hblank,
@@ -18,11 +19,12 @@ module horizontal_counter (
     assign hblank = (h_count >= H_VISIBLE_AREA); // Generate horizontal blanking signal
     assign en_v_count = (h_count == H_TOTAL - 2); // Generate vertical count enable signal
 
-    always @(posedge clk or negedge reset_n) begin
+    always @(posedge clk) begin
         if (!reset_n) begin
             h_count <= 11'd0;
         end else begin
-            h_count <= (h_count < H_TOTAL) ? h_count + 1 : 11'd0;
+            if (clk_en)
+                h_count <= (h_count < H_TOTAL) ? h_count + 1 : 11'd0;
         end
     end
 

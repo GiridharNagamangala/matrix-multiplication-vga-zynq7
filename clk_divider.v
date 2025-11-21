@@ -14,11 +14,12 @@ module clk_divider (
             counter <= 32'd0;
             clk_out <= 1'b0;
         end else begin
-            if (counter == (DIVIDE_BY / 2 - 1)) begin
-                clk_out <= ~clk_out; // Toggle output clock
+            if (counter == (DIVIDE_BY - 1)) begin
+                clk_out <= 1'b1; // Toggle output clock
                 counter <= 32'd0;    // Reset counter
             end else begin
                 counter <= counter + 1; // Increment counter
+                clk_out <= 1'b0;
             end
         end
     end

@@ -23,7 +23,8 @@ module vga_rtl_top (
 
     // Horizontal counter instance
     horizontal_counter horiz_counter_inst (
-        .clk(pixel_clk),
+        .clk(clk),
+        .clk_en(pixel_clk),
         .reset_n(reset_n),
         .hsync(hsync),
         .hblank(hblank),
@@ -33,7 +34,8 @@ module vga_rtl_top (
 
     // Vertical counter instance
     vertical_counter vert_counter_inst (
-        .clk(pixel_clk),
+        .clk(clk),
+        .clk_en(pixel_clk),
         .reset_n(reset_n),
         .en_v_count(v_en),
         .vsync(vsync),
