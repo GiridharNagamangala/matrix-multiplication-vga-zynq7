@@ -6,9 +6,7 @@ module digit_8x16 #(
     input wire [10:0] h_count,
     input wire [10:0] v_count,
 	input wire [3:0]  bcd,
-	output wire [3:0] vga_r,
-    output wire [3:0] vga_g,
-    output wire [3:0] vga_b
+	output wire pixon
 );
 
     wire [3:0] row = v_count - YSTART;
@@ -25,8 +23,6 @@ module digit_8x16 #(
         .pixel(fpixout)
     );
 
-    assign vga_r = factive && fpixout ? 4'hf : 4'h0;
-    assign vga_g = factive && fpixout ? 4'hf : 4'h0;
-    assign vga_b = factive && fpixout ? 4'hf : 4'h0;
+    assign pixon = factive ? fpixout : 1'b0;
 
 endmodule
