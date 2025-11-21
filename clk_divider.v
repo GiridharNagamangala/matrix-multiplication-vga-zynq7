@@ -9,8 +9,8 @@ module clk_divider (
     // Counter to track clock cycles
     reg [$clog2(DIVIDE_BY)-1:0] counter;
 
-    always @(posedge clk_in or negedge reset_n) begin
-        if (!reset_n) begin
+    always @(posedge clk_in) begin
+        if (reset_n) begin
             counter <= 32'd0;
             clk_out <= 1'b0;
         end else begin
