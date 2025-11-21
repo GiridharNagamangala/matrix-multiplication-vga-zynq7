@@ -1,32 +1,76 @@
 `timescale 1ns / 1ps
 module vga_digit_rom (
-    input       clk,
-    input       [3:0]   digit_code, // 0 to 9
-    input       [3:0]   row,        // 0 to 15
-    input       [2:0]   col,        // 0 to 7
-    output wire pixel
+    input        clk,
+    input  [3:0] digit_code, // 0–9
+    input  [3:0] row,        // 0–15
+    input  [2:0] col,        // 0–7
+    output wire  pixel
 );
 
-// Address structure - {digit_code[3:0], row[3:0], col[2:0]} (11 bits)
+    reg [7:0] rom [0:9][0:15];
 
-RAMB16_S1 BRAM_DIGITS (
-    .CLK(clk),
-    .EN(1'b1),
-    .WE(1'b0),
-    .ADDR({digit_code, row, ~col}), 
-    .SSR(1'b0),
-    .DI(1'b0),
-    .DO(pixel)
-);
+    always @(posedge clk) begin
+        // Zero
+        rom [0][0] <= 8'h00; rom [0][1] <= 8'h00; rom [0][2] <= 8'h7c; rom [0][3] <= 8'h66;
+        rom [0][4] <= 8'h66; rom [0][5] <= 8'h66; rom [0][6] <= 8'h66; rom [0][7] <= 8'h66;
+        rom [0][8] <= 8'h66; rom [0][9] <= 8'h66; rom [0][10] <= 8'h66; rom [0][11] <= 8'h66;
+        rom [0][12] <= 8'h7c; rom [0][13] <= 8'h00; rom [0][14] <= 8'h00; rom [0][15] <= 8'h00;
 
-// Initialization Parameters (ASCII 0 to 9), 8 cols per digit x 16 rows
+        //One
+        rom [1][0] <= 8'h00; rom [1][1] <= 8'h00; rom [1][2] <= 8'h18; rom [1][3] <= 8'h38;
+        rom [1][4] <= 8'h18; rom [1][5] <= 8'h18; rom [1][6] <= 8'h18; rom [1][7] <= 8'h18;
+        rom [1][8] <= 8'h18; rom [1][9] <= 8'h18; rom [1][10] <= 8'h18; rom [1][11] <= 8'h18;
+        rom [1][12] <= 8'h7e; rom [1][13] <= 8'h00; rom [1][14] <= 8'h00; rom [1][15] <= 8'h00;
 
-defparam BRAM_DIGITS.INIT_00 = 256'h7c66666666666666667c00000000000018181818181818181818000000000000; // INIT_00 contains Digit 0 (0x30) and Digit 1 (0x31)
-defparam BRAM_DIGITS.INIT_01 = 256'h7c666030180c0666667c0000000000007c66063c06066666667c000000000000; // INIT_01 contains Digit 2 (0x32) and Digit 3 (0x33)
-defparam BRAM_DIGITS.INIT_02 = 256'h183868c8c8fec8c8c8c8000000000000fcc0c0c0f8060606067c000000000000; // INIT_02 contains Digit 4 (0x34) and Digit 5 (0x35)
-defparam BRAM_DIGITS.INIT_03 = 256'h7c6660c0c0f86666667c000000000000fefe0204081020408080000000000000; // INIT_03 contains Digit 6 (0x36) and Digit 7 (0x37)
-defparam BRAM_DIGITS.INIT_04 = 256'h7c6666667c666666667c0000000000007c6666667c060606067c000000000000; // INIT_04 contains Digit 8 (0x38) and Digit 9 (0x39)
-defparam BRAM_DIGITS.INIT_05 = 256'h0000000000000000000000000000000000000000000000000000000000000000; // INIT_05 and onwards are not strictly needed, but it is common practice to initialize the rest to 0
-// ... (INIT_06 to INIT_3F would typically be set to all zeros)
+        // Two
+        rom [2][0] <= 8'h00; rom [2][1] <= 8'h00; rom [2][2] <= 8'h7c; rom [2][3] <= 8'h66;
+        rom [2][4] <= 8'h60; rom [2][5] <= 8'h30; rom [2][6] <= 8'h18; rom [2][7] <= 8'h0c;
+        rom [2][8] <= 8'h0c; rom [2][9] <= 8'h66; rom [2][10] <= 8'h66; rom [2][11] <= 8'h66;
+        rom [2][12] <= 8'h7c; rom [2][13] <= 8'h00; rom [2][14] <= 8'h00; rom [2][15] <= 8'h00;
+
+        // Three
+        rom [3][0] <= 8'h00; rom [3][1] <= 8'h00; rom [3][2] <= 8'h7c; rom [3][3] <= 8'h66;
+        rom [3][4] <= 8'h06; rom [3][5] <= 8'h3c; rom [3][6] <= 8'h06; rom [3][7] <= 8'h06;
+        rom [3][8] <= 8'h66; rom [3][9] <= 8'h66; rom [3][10] <= 8'h66; rom [3][11] <= 8'h66;
+        rom [3][12] <= 8'h7c; rom [3][13] <= 8'h00; rom [3][14] <= 8'h00; rom [3][15] <= 8'h00;
+
+        // Four
+        rom [4][0] <= 8'h00; rom [4][1] <= 8'h00; rom [4][2] <= 8'h18; rom [4][3] <= 8'h38;
+        rom [4][4] <= 8'h68; rom [4][5] <= 8'h38; rom [4][6] <= 8'hfe; rom [4][7] <= 8'h08;
+        rom [4][8] <= 8'h08; rom [4][9] <= 8'h08; rom [4][10] <= 8'h08; rom [4][11] <= 8'h08;
+        rom [4][12] <= 8'hfe; rom [4][13] <= 8'h00; rom [4][14] <= 8'h00; rom [4][15] <= 8'h00;
+
+        // Five
+        rom [5][0] <= 8'h00; rom [5][1] <= 8'h00; rom [5][2] <= 8'hfc; rom [5][3] <= 8'hc0;
+        rom [5][4] <= 8'hc0; rom [5][5] <= 8'hc0; rom [5][6] <= 8'hf8; rom [5][7] <= 8'h06;
+        rom [5][8] <= 8'h06; rom [5][9] <= 8'h06; rom [5][10] <= 8'h66; rom [5][11] <= 8'h66;
+        rom [5][12] <= 8'h7c; rom [5][13] <= 8'h00; rom [5][14] <= 8'h00; rom [5][15] <= 8'h00;
+
+        // Six
+        rom [6][0] <= 8'h00; rom [6][1] <= 8'h00; rom [6][2] <= 8'h7c; rom [6][3] <= 8'h66;
+        rom [6][4] <= 8'h60; rom [6][5] <= 8'hc0; rom [6][6] <= 8'hf8; rom [6][7] <= 8'h66;
+        rom [6][8] <= 8'h66; rom [6][9] <= 8'h66; rom [6][10] <= 8'h66; rom [6][11] <= 8'h66;
+        rom [6][12] <= 8'h7c; rom [6][13] <= 8'h00; rom [6][14] <= 8'h00; rom [6][15] <= 8'h00;
+
+        // Seven
+        rom [7][0] <= 8'h00; rom [7][1] <= 8'h00; rom [7][2] <= 8'hfe; rom [7][3] <= 8'h66;
+        rom [7][4] <= 8'h06; rom [7][5] <= 8'h0c; rom [7][6] <= 8'h18; rom [7][7] <= 8'h30;
+        rom [7][8] <= 8'h60; rom [7][9] <= 8'h60; rom [7][10] <= 8'h60; rom [7][11] <= 8'h60;
+        rom [7][12] <= 8'h60; rom [7][13] <= 8'h00; rom [7][14] <= 8'h00; rom [7][15] <= 8'h00;
+
+        // Eight
+        rom [8][0] <= 8'h00; rom [8][1] <= 8'h00; rom [8][2] <= 8'h7c; rom [8][3] <= 8'h66;
+        rom [8][4] <= 8'h66; rom [8][5] <= 8'h66; rom [8][6] <= 8'h7c; rom [8][7] <= 8'h66;
+        rom [8][8] <= 8'h66; rom [8][9] <= 8'h66; rom [8][10] <= 8'h66; rom [8][11] <= 8'h66;
+        rom [8][12] <= 8'h7c; rom [8][13] <= 8'h00; rom [8][14] <= 8'h00; rom [8][15] <= 8'h00;
+
+        // Nine
+        rom [9][0] <= 8'h00; rom [9][1] <= 8'h00; rom [9][2] <= 8'h7c; rom [9][3] <= 8'h66;
+        rom [9][4] <= 8'h66; rom [9][5] <= 8'h66; rom [9][6] <= 8'h7c; rom [9][7] <= 8'h06;
+        rom [9][8] <= 8'h06; rom [9][9] <= 8'h06; rom [9][10] <= 8'h06; rom [9][11] <= 8'h06;
+        rom [9][12] <= 8'h7c; rom [9][13] <= 8'h00; rom [9][14] <= 8'h00; rom [9][15] <= 8'h00;
+    end
+
+    assign pixel = rom[digit_code][row][col];
 
 endmodule

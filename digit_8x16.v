@@ -3,7 +3,6 @@ module digit_8x16 #(
     parameter YSTART = 50
 )(
 	input wire clk,
-    input wire clk_en,
     input wire [10:0] h_count,
     input wire [10:0] v_count,
 	input wire [3:0]  bcd,
@@ -22,7 +21,7 @@ module digit_8x16 #(
         .clk(clk),
         .digit_code(bcd),
         .row(row),
-        .col(col),
+        .col(7 - col),
         .pixel(fpixout)
     );
 
