@@ -63,7 +63,7 @@ module vga_rtl_top #(
                             .XSTART(X0 + (l * 8) + (k * 55) + (j * 165)),
                             .YSTART(Y0 + (i * 30))
                         ) digit_inst (
-                            .clk(pixel_clk),
+                            .clk(bram_clk),
                             .h_count(h_count),
                             .v_count(v_count),
                             .bcd(4'h5),
