@@ -13,7 +13,7 @@ module vga_rtl_top (
     // Clock divider instance to generate pixel clock from system clock
     wire pixel_clk, bram_clk, v_en;
     wire [10:0] h_count, v_count;
-    wire pixel_on;
+    wire p1, p2;
 
     clk_divider #(
         .DIVIDE_BY(4) // Adjust this value based on system clock frequency to get desired pixel clock
@@ -58,12 +58,23 @@ module vga_rtl_top (
         .clk(bram_clk),
         .h_count(h_count),
         .v_count(v_count),
-        .bcd(4'h5), // BCD code for digit '9'
-        .pixon(pixel_on)
+        .bcd(4'h9), // BCD code for digit '9'
+        .pixon(p1)
     );
 
-    assign vga_r = pixel_on ? 4'hf : 4'h0;
-    assign vga_g = pixel_on ? 4'hf : 4'h0;
-    assign vga_b = pixel_on ? 4'hf : 4'h0;
+    digit_8x16 #(
+        .XSTART(110),
+        .YSTART(50)
+    ) digit_display_inst2 (
+        .clk(bram_clk),
+        .h_count(h_count),
+        .v_count(v_count),
+        .bcd(4'h1), // BCD code for digit '9'
+        .pixon(p2)
+    );
+
+    assign vga_r = (p1 || p2) ? 4'hf : 4'h0;
+    assign vga_g = (p1 || p2) ? 4'hf : 4'h0;
+    assign vga_b = (p1 || p2) ? 4'hf : 4'h0;
 
 endmodule
