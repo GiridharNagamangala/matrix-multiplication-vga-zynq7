@@ -1,3 +1,5 @@
+// Working output (to an extent)
+
 module vga_rtl_top #(
     parameter X0 = 100, parameter Y0 = 50,
     parameter MATRIX_N = 3, parameter MATRIX_M = 3, parameter DIGITS = 5, WIDTH = 16
