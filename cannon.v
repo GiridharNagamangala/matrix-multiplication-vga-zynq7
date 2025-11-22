@@ -33,7 +33,7 @@ module cannon #(
     input read_ready,
     output [WIDTH*2-1+$clog2(N):0] serial_c_out,
     output output_valid,
-     output  [WIDTH*2-1+$clog2(N):0] stage0,
+     output [WIDTH*2-1+$clog2(N):0] stage0,
      output [WIDTH*2-1+$clog2(N):0] stage1,
      output [WIDTH*2-1+$clog2(N):0] stage2,
      output [WIDTH*2-1+$clog2(N):0] stage3,

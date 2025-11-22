@@ -1,7 +1,7 @@
 module vertical_counter (
     input  wire clk,
     input wire clk_en,
-    input  wire reset_n,
+    input  wire reset,
     input wire en_v_count,
     output wire  vsync,
     output wire  vblank,
@@ -19,7 +19,7 @@ module vertical_counter (
     assign vblank = (v_count >= V_VISIBLE_AREA); // Generate vertical blanking signal
 
     always @(posedge clk) begin
-        if (reset_n) begin
+        if (reset) begin
             v_count <= 11'd0;
         end else begin
             if (clk_en && en_v_count) begin

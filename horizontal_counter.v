@@ -1,7 +1,7 @@
 module horizontal_counter (
     input  wire clk,
     input wire clk_en,
-    input  wire reset_n,
+    input  wire reset,
     output wire  hsync,
     output wire  hblank,
     output wire en_v_count,
@@ -20,7 +20,7 @@ module horizontal_counter (
     assign en_v_count = (h_count == H_TOTAL - 2); // Generate vertical count enable signal
 
     always @(posedge clk) begin
-        if (reset_n) begin
+        if (reset) begin
             h_count <= 11'd0;
         end else begin
             if (clk_en)

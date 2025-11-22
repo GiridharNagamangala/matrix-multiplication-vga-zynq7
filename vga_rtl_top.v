@@ -7,7 +7,7 @@ module vga_rtl_top #(
     parameter MATRIX_N = 3, parameter MATRIX_M = 3, parameter DIGITS = 5
 )(
     input  wire clk,         // System clock input
-    input  wire reset_n,     // Active low reset
+    input  wire reset,     // Active low reset
     output wire hsync,       // Horizontal sync output
     output wire vsync,       // Vertical sync output
     output wire hblank,      // Horizontal blanking signal
@@ -26,7 +26,7 @@ module vga_rtl_top #(
         .DIVIDE_BY(4) // Adjust this value based on system clock frequency to get desired pixel clock
     ) clk_div_inst (
         .clk_in(clk),
-        .reset_n(reset_n),
+        .reset(reset),
         .clk_out(pixel_clk),
         .clk_ram(bram_clk)
     );
@@ -35,7 +35,7 @@ module vga_rtl_top #(
     horizontal_counter horiz_counter_inst (
         .clk(clk),
         .clk_en(pixel_clk),
-        .reset_n(reset_n),
+        .reset(reset),
         .hsync(hsync),
         .hblank(hblank),
         .en_v_count(v_en),
@@ -46,7 +46,7 @@ module vga_rtl_top #(
     vertical_counter vert_counter_inst (
         .clk(clk),
         .clk_en(pixel_clk),
-        .reset_n(reset_n),
+        .reset(reset),
         .en_v_count(v_en),
         .vsync(vsync),
         .vblank(vblank),

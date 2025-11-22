@@ -1,6 +1,6 @@
 module clk_divider (
     input  wire clk_in,
-    input  wire reset_n,
+    input  wire reset,
     output reg  clk_out,
     output reg clk_ram
 );
@@ -11,7 +11,7 @@ module clk_divider (
     reg [$clog2(DIVIDE_BY)-1:0] counter;
 
     always @(posedge clk_in) begin
-        if (reset_n) begin
+        if (reset) begin
             counter <= 32'd0;
             clk_out <= 1'b0;
             clk_ram <= 1'b0;
