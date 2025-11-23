@@ -23,6 +23,7 @@ module vga_rtl_top #(
     wire pixel_clk, bram_clk, v_en;
     wire [10:0] h_count, v_count;
     wire [(MATRIX_M * MATRIX_N * DIGITS * 3)-1:0] pixel;
+    wire [2:0] brackets;
     reg [4:0] outcount;
     reg start;
     
@@ -131,7 +132,7 @@ module vga_rtl_top #(
                     );
                     for (l = 0; l < DIGITS; l = l + 1) begin : digit_loop
                         digit_8x16 #(
-                            .XSTART(X0 + (l * 8) + (k * 55) + (j * 165)),
+                            .XSTART(X0 + (l * 8) + (k * 55) + (j * 170)),
                             .YSTART(Y0 + (i * 30))
                         ) digit_inst (
                             .clk(bram_clk),
