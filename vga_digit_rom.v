@@ -7,7 +7,7 @@ module vga_digit_rom (
     output wire  pixel
 );
 
-    reg [7:0] rom [0:12][0:15];
+    reg [7:0] rom [0:9][0:15];
 
     always @(posedge clk) begin
         // Zero
@@ -69,25 +69,6 @@ module vga_digit_rom (
         rom [9][4] <= 8'h66; rom [9][5] <= 8'h66; rom [9][6] <= 8'h7c; rom [9][7] <= 8'h06;
         rom [9][8] <= 8'h06; rom [9][9] <= 8'h06; rom [9][10] <= 8'h06; rom [9][11] <= 8'h06;
         rom [9][12] <= 8'h7c; rom [9][13] <= 8'h00; rom [9][14] <= 8'h00; rom [9][15] <= 8'h00;
-
-        // multiplication symbol
-        rom [10][0] <= 8'h00; rom [10][1] <= 8'h00; rom [10][2] <= 8'h00; rom [10][3] <= 8'h00;
-        rom [10][4] <= 8'h81; rom [10][5] <= 8'h42; rom [10][6] <= 8'h24; rom [10][7] <= 8'h18;
-        rom [10][8] <= 8'h18; rom [10][9] <= 8'h24; rom [10][10] <= 8'h42; rom [10][11] <= 8'h81;
-        rom [10][12] <= 8'h00; rom [10][13] <= 8'h00; rom [10][14] <= 8'h00; rom [10][15] <= 8'h00;
-
-        // Equals symbol
-        rom [11][0] <= 8'h00; rom [11][1] <= 8'h00; rom [11][2] <= 8'h00; rom [11][3] <= 8'h00;
-        rom [11][4] <= 8'h00; rom [11][5] <= 8'hff; rom [11][6] <= 8'hff; rom [11][7] <= 8'h00;
-        rom [11][8] <= 8'h00; rom [11][9] <= 8'hff; rom [11][10] <= 8'hff; rom [11][11] <= 8'h00;
-        rom [11][12] <= 8'h00; rom [11][13] <= 8'h00; rom [11][14] <= 8'h00; rom [11][15] <= 8'h00;
-
-        // Decimal point
-        rom [12][0] <= 8'h00; rom [12][1] <= 8'h00; rom [12][2] <= 8'h00; rom [12][3] <= 8'h00;
-        rom [12][4] <= 8'h00; rom [12][5] <= 8'h00; rom [12][6] <= 8'h00; rom [12][7] <= 8'h00;
-        rom [12][8] <= 8'h00; rom [12][9] <= 8'h00; rom [12][10] <= 8'h00; rom [12][11] <= 8'h18;
-        rom [12][12] <= 8'h18; rom [12][13] <= 8'h00; rom [12][14] <= 8'h00; rom [12][15] <= 8'h00;
-
     end
 
     assign pixel = rom[digit_code][row][col];
