@@ -8,6 +8,7 @@ Synthesis and Implementation using Xilinx Vivado 2024 ML Edition.
 1. Make sure the part number for the board being used is the same as the one mentioned above. If not, refer to [Digilent's resource on board mapping](https://github.com/Digilent/digilent-xdc/tree/master "digilent-xdc: A collection of Master XDC files for Digilent FPGA and Zynq boards.") for your respective Xilinx board.
 2. In Vivado, add all files in the [Working Codefiles folder](https://github.com/GiridharNagamangala/matrix-multiplication-vga-zynq7/tree/main/Working Codefiles) as design sources and the XDC file as a constraint.
 3. Under Project manager, click on IP Catalog and search for VIO (Virtual Input-Output) in the window that opens, click on it to instantiate in the top module (`top.v`). Configure the output and input pins following the bus width and number of pins as given in the corresponding module instantiation in `top.v`.
+
      (Alternatively: The `top.v` file can be bypassed by instantiating `vga_rtl_top.v` and VIO in block diagram, and then creating HDL wrapper.)
 
 ## Codefiles and Hierarchy
