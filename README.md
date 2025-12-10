@@ -13,7 +13,7 @@ Synthesis and Implementation using Xilinx Vivado 2024 ML Edition.
 
 ## Codefiles and Hierarchy
 
-+ **Board Constraints** rtl_1.xdc maps the RGB output buses to their corresponding pins on the on-board VGA socket, the VGA blanking signals (`h_blank` and `v_blank`) to LEDs `T22` and `U22` respectively, system clock to the board 100 MHz clock (pin `Y9`) and sets the I/O Voltage standard to 3.3V CMOS (`LVCMOS33`) among other individual pin properties (Drive, Direction and Slew).
++ **Board Constraints** `rtl_1.xdc` maps the RGB output buses to their corresponding pins on the on-board VGA socket, the VGA blanking signals (`h_blank` and `v_blank`) to LEDs `T22` and `U22` respectively, system clock to the board 100 MHz clock (pin `Y9`) and sets the I/O Voltage standard to 3.3V CMOS (`LVCMOS33`) among other individual pin properties (Drive, Direction and Slew).
 + **Deprecated** Files that are no longer used for Design Synthesis but were initially written to test and get a hang of the project.
 + **Working Board Config files** Bitfiles for both designs (Fixed point decimal and integer representation was split into two Xilinx Vivado projects for ease of presentation on board; although a single project can perform either by switching the corresponding parameters synthesis takes quite some time).
 + **Working Codefiles** All files that are used for synthesis.
